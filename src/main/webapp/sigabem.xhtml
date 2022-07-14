@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:b="http://bootsfaces.net/ui">
 
 	<html>
-	
+
 <h:head>
 	<title>SigaBem</title>
 </h:head>
@@ -15,39 +15,46 @@
 
 	<b:messages />
 
-	<b:form>
+	<b:form style="margin-top:2%; margin-left:2%; margin-right:2%">
 
-		<h1>Teste de Pagina</h1>
+		<center>
+			<h1>Teste de Pagina</h1>
+		</center>
 
-		<b:panelGrid columns="2">
+		<b:panelGrid columns="2" style="margin-top:2%">
 
 			<b:panel>
-
 				<b:column>
 					<h:outputLabel value="peso: " />
+					<!-- 					<b:inputText value="#{}" /> -->
 				</b:column>
-
 				<b:column>
 					<h:outputLabel value="cepOrigem: " />
 				</b:column>
-
+			</b:panel>
+			<b:panel>
 				<b:column>
 					<h:outputLabel value="cepDestino: " />
 				</b:column>
-
 				<b:column>
 					<h:outputLabel value="nomeDestinatario: " />
 				</b:column>
-
 			</b:panel>
 
-
 		</b:panelGrid>
+
+	</b:form>
+	<b:form>
+		<b:dataTable value="">
+			<b:dataTableColumn />
+			<b:dataTableColumn />
+			<b:dataTableColumn />
+		</b:dataTable>
 
 	</b:form>
 
 </h:body>
 
 	</html>
-	
+
 </f:view>

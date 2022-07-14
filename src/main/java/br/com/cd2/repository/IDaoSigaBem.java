@@ -4,12 +4,12 @@ import java.util.List;
 
 import br.com.cd2.entidades.SigaBem;
 
-public interface IDaoSigaBem {
+public interface IDaoSigaBem<E> {
 
-	SigaBem Merge(SigaBem entidade);
+	SigaBem merge(E entidade);
 
-	List<SigaBem> getList(SigaBem entidade);
+	List<SigaBem> getList(Class<E> entidade);
 
-	void Delete(SigaBem entidade);
+	void delete(E entidade);
 
 }

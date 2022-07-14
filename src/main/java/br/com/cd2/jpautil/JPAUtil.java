@@ -18,7 +18,7 @@ public class JPAUtil implements Serializable {
 
 	public JPAUtil() {
 		if (factory == null) {
-			factory = Persistence.createEntityManagerFactory("meuprimeiroprojetojsf");
+			factory = Persistence.createEntityManagerFactory("JavaTest");
 		}
 	}
 

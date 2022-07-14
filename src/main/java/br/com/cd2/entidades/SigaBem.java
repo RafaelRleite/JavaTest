@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQuery(name = "SigaBem.DaoGenerico", query = "select e from SigaBem e")
 public class SigaBem implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

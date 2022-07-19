@@ -8,7 +8,7 @@ public interface IDaoSigaBem<E> {
 
 	SigaBem merge(E entidade);
 
-	List<SigaBem> getList(Class<E> entidade);
+	List<E> getList(Class<E> entidade);
 
 	void delete(E entidade);
 

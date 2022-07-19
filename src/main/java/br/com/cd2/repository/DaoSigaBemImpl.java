@@ -24,36 +24,35 @@ public class DaoSigaBemImpl implements IDaoSigaBem<SigaBem>, Serializable {
 
 	@Override
 	public SigaBem merge(SigaBem entidade) {
-		entityManager = jpaUtil.getEntityManager();
+//		entityManager = jpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
 		SigaBem retorno = entityManager.merge(entidade);
 
 		entityTransaction.commit();
-		entityManager.close();
 
 		return retorno;
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SigaBem> getList(Class<SigaBem> entidade) {
-		entityManager = jpaUtil.getEntityManager();
+//		entityManager = jpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
-		List<SigaBem> retorno = entityManager.createQuery("SigaBem.DaoGenerico", SigaBem.class).getResultList();
+		List<SigaBem> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
 
 		entityTransaction.commit();
-		entityManager.close();
 
 		return retorno;
 	}
 
 	@Override
 	public void delete(SigaBem entidade) {
-		entityManager = jpaUtil.getEntityManager();
+//		entityManager = jpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
@@ -62,7 +61,6 @@ public class DaoSigaBemImpl implements IDaoSigaBem<SigaBem>, Serializable {
 				.executeUpdate();
 
 		entityTransaction.commit();
-		entityManager.close();
 	}
 
 }

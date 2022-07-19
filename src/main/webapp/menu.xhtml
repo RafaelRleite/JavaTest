@@ -10,23 +10,13 @@
 	</h:head>
 
 	<h:form>
-		<b:navBar brand="Menu"
-			brandHref="/meuprimeiroprojetojsfgit/primeirapagina.jsf" fluid="true">
+		<b:navBar brand="Menu" brand-img="resources/images.png" brand-img-style="margin-right: 30px;margin-top:-10px "
+			brandHref="/JavaTest/sigabem.jsf" fluid="true">
 			<b:navbarLinks>
+
 				<b:navCommandLink action="primeirapagina?faces-redirect=true"
 					value="Administração"
 					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
-				<b:navCommandLink action="lancamento?faces-redirect=true"
-					value="Lançamentos" />
-				<b:dropMenu value="Relatórios">
-					<b:navCommandLink value="Rel. Notas" action="rellancamento" />
-					<b:navCommandLink value="Rel. Usuário" action="relusuario" />
-				</b:dropMenu>
-				<b:navCommandLink action="UpLoadAula?faces-redirect=true"
-					value="Upload de Arquivos" />
-				<b:navCommandLink action="#{pessoaBean.deslogar}"
-					value="Trocar Usuário" />
-
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>

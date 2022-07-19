@@ -44,8 +44,8 @@ public class SigaBem implements Serializable {
 	@Column(name = "vl_peso")
 	private Integer vlPeso;
 
-	@Column(name = "vl_vltotalfrete")
-	private BigDecimal vlVltotalfrete;
+	@Column(name = "vl_totalfrete")
+	private BigDecimal vlTotalfrete;
 
 	public SigaBem() {
 	}
@@ -106,12 +106,12 @@ public class SigaBem implements Serializable {
 		this.vlPeso = vlPeso;
 	}
 
-	public BigDecimal getVlVltotalfrete() {
-		return this.vlVltotalfrete;
+	public BigDecimal getVlTotalfrete() {
+		return this.vlTotalfrete;
 	}
 
-	public void setVlVltotalfrete(BigDecimal vlVltotalfrete) {
-		this.vlVltotalfrete = vlVltotalfrete;
+	public void setVlTotalfrete(BigDecimal vlVltotalfrete) {
+		this.vlTotalfrete = vlVltotalfrete;
 	}
 
 }

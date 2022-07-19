@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,34 +22,46 @@ public class SigaBemBean implements Serializable {
 
 	private SigaBem sigabem = new SigaBem();
 
-	private List<SigaBem> sigaBems = new ArrayList<SigaBem>();
+	private List<SigaBem> sigabems = new ArrayList<SigaBem>();
 
 	@Inject
 	private DaoSigaBemImpl daoSigaBemImpl;
-	
+
 	public String endPoint() {
+
+		return "";
+	}
+
+	public String novo() {
+		sigabem = new SigaBem();
+		mostraMsg("Realize novo calculo!");
 		return "";
 	}
 
 	public String salvar() {
 		sigabem = daoSigaBemImpl.merge(sigabem);
 		carregarSigaBem();
-		return "";
-	}
-
-	public String novo() {
-		sigabem = new SigaBem();
+		mostraMsg("Salvo com sucesso!");
 		return "";
 	}
 
 	public String delete() {
 		daoSigaBemImpl.delete(sigabem);
+		sigabem = new SigaBem();
+		carregarSigaBem();
+		mostraMsg("Excluido com sucesso!");
 		return "";
 	}
 
 	@PostConstruct
 	public void carregarSigaBem() {
-		sigaBems = daoSigaBemImpl.getList(SigaBem.class);
+		sigabems = daoSigaBemImpl.getList(SigaBem.class);
+	}
+
+	private void mostraMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
 	}
 
 	public SigaBem getSigabem() {
@@ -58,12 +72,12 @@ public class SigaBemBean implements Serializable {
 		this.sigabem = sigabem;
 	}
 
-	public List<SigaBem> getSigaBems() {
-		return sigaBems;
+	public List<SigaBem> getSigabems() {
+		return sigabems;
 	}
 
-	public void setSigaBems(List<SigaBem> sigaBems) {
-		this.sigaBems = sigaBems;
+	public void setSigabems(List<SigaBem> sigabems) {
+		this.sigabems = sigabems;
 	}
 
 	public DaoSigaBemImpl getDaoSigaBemImpl() {

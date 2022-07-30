@@ -33,53 +33,50 @@
 
 		<div class="panel-body">
 			<div class="form-horizontal">
-
-				<h:panelGroup class="col-md-12" layout="block">
-
-					<div class="form-group form-group-sm">
-
-						<label class="col-md-1 control-label">Peso:</label>
-						<div class="col-md-3">
-							<b:inputText value="#{sigabembean.sigabem.vlPeso}" />
-						</div>
-						<label class="col-md-1 control-label">CEP de Origem:</label>
-						<div class="col-md-3">
-							<b:inputText value="#{sigabembean.sigabem.cepOrigem}" />
-						</div>
-						<label class="col-md-1 control-label">CEP do Destino:</label>
-						<div class="col-md-3">
-							<b:inputText value="#{sigabembean.sigabem.cepDestino}" />
-						</div>
+				<div class="form-group form-group-sm">
+					<label class="col-md-1 control-label">Peso:</label>
+					<div class="col-md-3">
+						<b:inputText value="#{sigabembean.sigabem.vlPeso}" />
 					</div>
-					<div class="form-group form-group-sm">
-						<label class="col-md-1 control-label">Destinatario:</label>
-						<div class="col-md-5">
-							<b:inputText value="#{sigabembean.sigabem.nmDestinatario}" />
-						</div>
+					<label class="col-md-1 control-label">CEP de Origem:</label>
+					<div class="col-md-3" id="primeiroCep">
+						<b:inputText value="#{sigabembean.sigabem.cepOrigem}"
+							mask="99999-999">
+							<f:ajax execute="@this" listener="#{sigabembean.cepOrigem}" />
+						</b:inputText>
 					</div>
-
-				</h:panelGroup>
-
-				<h:panelGroup class="col-md-4" layout="block">
-
+					<label class="col-md-1 control-label">CEP do Destino:</label>
+					<div class="col-md-3" id="segundoCep">
+						<b:inputText value="#{sigabembean.sigabem.cepDestino}"
+							mask="99999-999">
+							<f:ajax execute="@this" listener="#{sigabembean.cepDestino}" />
+						</b:inputText>
+					</div>
+				</div>
+				<div class="form-group form-group-sm">
+					<label class="col-md-1 control-label">Destinatario:</label>
+					<div class="col-md-5">
+						<b:inputText value="#{sigabembean.sigabem.nmDestinatario}" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group form-group-sm">
+				<div class="col-md-2">
 					<div class="form-group form-group-sm">
-						<div class="col-md-2">
+						<div class="col-md-4">
 							<b:commandButton value="Novo" title="Novo"
 								action="#{sigabembean.novo}" />
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-4">
 							<b:commandButton value="Salvar" title="Salvar"
 								action="#{sigabembean.salvar}" />
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-4">
 							<b:commandButton value="Calcular" title="Calcular"
 								action="#{sigabembean.endPoint}" />
 						</div>
-
 					</div>
-
-				</h:panelGroup>
-
+				</div>
 			</div>
 		</div>
 	</b:form>
@@ -93,7 +90,7 @@
 			<b:dataTableColumn value="#{sb.cepDestino}" label="CEP Destinatário" />
 			<b:dataTableColumn value="#{sb.cepOrigem}" label="CEP Remetente" />
 			<b:dataTableColumn value="#{sb.vlTotalfrete}"
-				label="Valot Total do Frete" />
+				label="Valor Total do Frete" />
 			<b:dataTableColumn value="#{sb.dtPrevistaentrega}"
 				label="Data Prevista para Entrega" />
 
@@ -107,8 +104,8 @@
 
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink  title="Excluir" value="Excluir"
-					immediate="true" action="#{sigabembean.delete}">
+				<h:commandLink title="Excluir" value="Excluir" immediate="true"
+					action="#{sigabembean.delete}">
 					<f:setPropertyActionListener target="#{sigabembean.sigabem}"
 						value="#{sb}" />
 				</h:commandLink>

@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQuery(name = "SigaBem.DaoGenerico", query = "select e from SigaBem e")
 public class SigaBem implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,8 +47,11 @@ public class SigaBem implements Serializable {
 	@Column(name = "vl_totalfrete")
 	private BigDecimal vlTotalfrete;
 
-	public SigaBem() {
-	}
+	@Column(name = "cep_uf")
+	private String uf;
+
+	@Column(name = "cep_ddd")
+	private String ddd;
 
 	public Integer getCdId() {
 		return this.cdId;
@@ -57,6 +60,14 @@ public class SigaBem implements Serializable {
 	public void setCdId(Integer cdId) {
 		this.cdId = cdId;
 	}
+	
+	public String getCepOrigem() {
+		return this.cepOrigem;
+	}
+	
+	public void setCepOrigem(String cepOrigem) {
+		this.cepOrigem = cepOrigem;
+	}
 
 	public String getCepDestino() {
 		return this.cepDestino;
@@ -64,14 +75,6 @@ public class SigaBem implements Serializable {
 
 	public void setCepDestino(String cepDestino) {
 		this.cepDestino = cepDestino;
-	}
-
-	public String getCepOrigem() {
-		return this.cepOrigem;
-	}
-
-	public void setCepOrigem(String cepOrigem) {
-		this.cepOrigem = cepOrigem;
 	}
 
 	public Date getDtConsulta() {
@@ -112,6 +115,22 @@ public class SigaBem implements Serializable {
 
 	public void setVlTotalfrete(BigDecimal vlVltotalfrete) {
 		this.vlTotalfrete = vlVltotalfrete;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getDDD() {
+		return ddd;
+	}
+
+	public void setDDD(String ddd) {
+		this.ddd = ddd;
 	}
 
 }

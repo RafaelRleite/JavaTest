@@ -2,7 +2,7 @@ package br.com.cd2.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "sigabem")
 @NamedQuery(name = "SigaBem.DaoGenerico", query = "select e from SigaBem e")
 public class SigaBem implements Serializable {
 
@@ -30,13 +30,11 @@ public class SigaBem implements Serializable {
 	@Column(name = "cep_origem")
 	private String cepOrigem;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_consulta")
-	private Date dtConsulta;
+	private Timestamp dtConsulta;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "dt_previstaentrega")
-	private Date dtPrevistaentrega;
+	private Timestamp dtPrevistaentrega;
 
 	@Column(name = "nm_destinatario")
 	private String nmDestinatario;
@@ -52,6 +50,7 @@ public class SigaBem implements Serializable {
 
 	@Column(name = "cep_ddd")
 	private String ddd;
+	
 
 	public Integer getCdId() {
 		return this.cdId;
@@ -60,11 +59,11 @@ public class SigaBem implements Serializable {
 	public void setCdId(Integer cdId) {
 		this.cdId = cdId;
 	}
-	
+
 	public String getCepOrigem() {
 		return this.cepOrigem;
 	}
-	
+
 	public void setCepOrigem(String cepOrigem) {
 		this.cepOrigem = cepOrigem;
 	}
@@ -77,19 +76,19 @@ public class SigaBem implements Serializable {
 		this.cepDestino = cepDestino;
 	}
 
-	public Date getDtConsulta() {
+	public Timestamp getDtConsulta() {
 		return dtConsulta;
 	}
 
-	public void setDtConsulta(Date dtConsulta) {
+	public void setDtConsulta(Timestamp dtConsulta) {
 		this.dtConsulta = dtConsulta;
 	}
 
-	public Date getDtPrevistaentrega() {
+	public Timestamp getDtPrevistaentrega() {
 		return dtPrevistaentrega;
 	}
 
-	public void setDtPrevistaentrega(Date dtPrevistaentrega) {
+	public void setDtPrevistaentrega(Timestamp dtPrevistaentrega) {
 		this.dtPrevistaentrega = dtPrevistaentrega;
 	}
 

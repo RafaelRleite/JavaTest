@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +24,7 @@ import javax.inject.Named;
 import com.google.gson.Gson;
 
 import br.com.cd2.entidades.SigaBem;
+import br.com.cd2.entidades.SigaBemDTO;
 import br.com.cd2.repository.DaoSigaBemImpl;
 
 @Named(value = "sigabembean")
@@ -45,26 +46,35 @@ public class SigaBemBean implements Serializable {
 
 	public String endPoint() {
 
-		String dataFormatada = DateTimeFormatter.ofPattern("dd/MM/uuuu").format(LocalDateTime.now());
-
-		sigabem.setDtPrevistaentrega(new Date(dataFormatada));
-
 		sigabem.setVlTotalfrete(new BigDecimal(sigabem.getVlPeso()));
+
+		LocalDateTime data = LocalDateTime.now();
+		Timestamp dtTSC = Timestamp.valueOf(data);
+
+		sigabem.setDtConsulta(dtTSC);
 
 		if (cepOrigemDDD.equalsIgnoreCase(cepDestinoDDD) && cepOrigemUf.equalsIgnoreCase(cepDestinoUf)) {
 			sigabem.setVlTotalfrete(sigabem.getVlTotalfrete().multiply(new BigDecimal(0.5), MathContext.DECIMAL32));
-
+			data = data.plusDays(1);
 		}
 
 		if (!cepOrigemDDD.equalsIgnoreCase(cepDestinoDDD) && cepOrigemUf.equalsIgnoreCase(cepDestinoUf)) {
 			sigabem.setVlTotalfrete(sigabem.getVlTotalfrete().multiply(new BigDecimal(0.75), MathContext.DECIMAL32));
+			data = data.plusDays(3);
 		}
 
-		if (!cepOrigemUf.equalsIgnoreCase(cepDestinoUf)) {
-
+		else if (!cepOrigemUf.equalsIgnoreCase(cepDestinoUf)) {
+			data = data.plusDays(10);
 		}
+
+		Timestamp dtTSPE = Timestamp.valueOf(data);
+		sigabem.setDtPrevistaentrega(dtTSPE);
 
 		return "";
+	}
+
+	public String dataFormatada(LocalDateTime data) {
+		return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 
 	public String novo() {
@@ -85,7 +95,9 @@ public class SigaBemBean implements Serializable {
 		daoSigaBemImpl.delete(sigabem);
 		sigabem = new SigaBem();
 		carregarSigaBem();
-		mostraMsg("Excluido com sucesso!");
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage excluir = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Excluido com sucesso!","");
+		context.addMessage(null, excluir);
 		return "";
 	}
 
@@ -114,15 +126,22 @@ public class SigaBemBean implements Serializable {
 				json.append(cepAux);
 			}
 
-			SigaBem gson = new Gson().fromJson(json.toString(), SigaBem.class);
+			SigaBemDTO SigaBemGson = new Gson().fromJson(json.toString(), SigaBemDTO.class);
 
-			sigabem.setDDD(gson.getDDD());
-			sigabem.setUf(gson.getUf());
+			sigabem = criarObjetoSigaBem(SigaBemGson);
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			mostraMsg("erro ao consultar cep");
 		}
+	}
+
+	private SigaBem criarObjetoSigaBem(SigaBemDTO sigaBemGson) {
+		SigaBem objSigaBem = new SigaBem();
+
+		objSigaBem.setDDD((sigaBemGson.getDdd() != null) ? sigaBemGson.getDdd() : "61");
+		objSigaBem.setUf(sigaBemGson.getUf());
+
+		return objSigaBem;
 	}
 
 	public void cepOrigem() {
@@ -161,10 +180,6 @@ public class SigaBemBean implements Serializable {
 
 	public void setDaoSigaBemImpl(DaoSigaBemImpl daoSigaBemImpl) {
 		this.daoSigaBemImpl = daoSigaBemImpl;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public String getCepOrigemDDD() {

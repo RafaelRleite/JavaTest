@@ -22,7 +22,7 @@
 		<div class="panel-head">
 			<div class="form-horizontal">
 				<div class="form-group form-group-sm">
-					<div class="col-md-12">
+					<div class="col-md-12 ">
 						<center>
 							<h1>Endpoint</h1>
 						</center>
@@ -31,56 +31,52 @@
 			</div>
 		</div>
 
-		<div class="panel-body">
-			<div class="form-horizontal">
-				<div class="form-group form-group-sm">
-					<label class="col-md-1 control-label">Peso:</label>
-					<div class="col-md-3">
-						<b:inputText value="#{sigabembean.sigabem.vlPeso}" />
-					</div>
-					<label class="col-md-1 control-label">CEP de Origem:</label>
-					<div class="col-md-3" id="primeiroCep">
-						<b:inputText value="#{sigabembean.sigabem.cepOrigem}"
-							mask="99999-999">
-							<f:ajax execute="@this" listener="#{sigabembean.cepOrigem}" />
-						</b:inputText>
-					</div>
-					<label class="col-md-1 control-label">CEP do Destino:</label>
-					<div class="col-md-3" id="segundoCep">
-						<b:inputText value="#{sigabembean.sigabem.cepDestino}"
-							mask="99999-999">
-							<f:ajax execute="@this" listener="#{sigabembean.cepDestino}" />
-						</b:inputText>
-					</div>
-				</div>
-				<div class="form-group form-group-sm">
-					<label class="col-md-1 control-label">Destinatario:</label>
-					<div class="col-md-5">
-						<b:inputText value="#{sigabembean.sigabem.nmDestinatario}" />
-					</div>
-				</div>
-			</div>
-			<div class="form-group form-group-sm">
-				<div class="col-md-2">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="form-horizontal">
 					<div class="form-group form-group-sm">
-						<div class="col-md-4">
-							<b:commandButton value="Novo" title="Novo"
-								action="#{sigabembean.novo}" />
+						<label class="col-md-1 col-form-label">Peso:</label>
+						<div class="col-md-5">
+							<b:inputText value="#{sigabembean.sigabem.vlPeso}" />
 						</div>
-						<div class="col-md-4">
-							<b:commandButton value="Salvar" title="Salvar"
-								action="#{sigabembean.salvar}" />
+						<label class="col-md-1 col-form-label">CEP de Origem:</label>
+						<div class="col-md-5" id="primeiroCep">
+							<b:inputText value="#{sigabembean.sigabem.cepOrigem}"
+								mask="99999-999">
+								<f:ajax execute="@this" listener="#{sigabembean.cepOrigem}" />
+							</b:inputText>
 						</div>
-						<div class="col-md-4">
-							<b:commandButton value="Calcular" title="Calcular"
-								action="#{sigabembean.endPoint}" />
+					</div>
+					<div class="form-group form-group-sm">
+						<label class="col-md-1 col-form-label">Destinatario:</label>
+						<div class="col-md-5">
+							<b:inputText value="#{sigabembean.sigabem.nmDestinatario}" />
 						</div>
+						<label class="col-md-1 col-form-label">CEP do Destino:</label>
+						<div class="col-md-5" id="segundoCep">
+							<b:inputText value="#{sigabembean.sigabem.cepDestino}"
+								mask="99999-999">
+								<f:ajax execute="@this" listener="#{sigabembean.cepDestino}" />
+							</b:inputText>
+						</div>
+					</div>
+				</div>
+
+				<div class="btn-toolbar ">
+					<div class="btn-group btn-group-lg">
+						<b:commandButton value="Novo" title="Novo" class="btn-primary"
+							action="#{sigabembean.novo}" />
+					</div>
+					<div class="btn-group btn-group-lg">
+						<b:commandButton value="Calcular e Salvar" title="Salvar"
+							class="btn-primary" action="#{sigabembean.salvar}" />
 					</div>
 				</div>
 			</div>
 		</div>
-	</b:form>
-	<h:form style="margin-left:2%; margin-right:2%">
+		</b:form>
+
+	<h:form style="margin-left:2%; margin-right:2%; margin-top:3%">
 
 		<b:dataTable value="#{sigabembean.sigabems}" var="sb"
 			caption="Lista de EndPont" rendered="true">
@@ -91,16 +87,11 @@
 			<b:dataTableColumn value="#{sb.cepOrigem}" label="CEP Remetente" />
 			<b:dataTableColumn value="#{sb.vlTotalfrete}"
 				label="Valor Total do Frete" />
-			<b:dataTableColumn value="#{sb.dtPrevistaentrega}"
-				label="Data Prevista para Entrega" />
-
-			<h:column>
-				<f:facet name="header">Editar</f:facet>
-				<h:commandLink title="Editar" value="Editar" immediate="true">
-					<f:setPropertyActionListener target="#{sigabembean.sigabem}"
-						value="#{sb}" />
-				</h:commandLink>
-			</h:column>
+			<b:dataTableColumn label="Data Prevista para Entrega">
+				<h:outputText value="#{sb.dtPrevistaentrega}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</b:dataTableColumn>
 
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
